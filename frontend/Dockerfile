@@ -20,8 +20,19 @@ RUN npm set fetch-retries 5 && \
 # Copy the rest of the application files
 COPY . .
 
+# Install dependencies and pm2
+RUN npm install
+RUN npm install -g pm2
+
+# Copy and set permissions for start script
+COPY start.sh /app/start.sh
+RUN chmod +x /app/start.sh
+
 # Expose the application port
 EXPOSE 3000
 
-# Start the application using npm
-CMD ["npm", "start"]
+# Start the application
+CMD ["/app/start.sh"]
+
+
+RUN npm install -g pm2
